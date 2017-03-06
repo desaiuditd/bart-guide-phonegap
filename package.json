@@ -1,0 +1,23 @@
+{
+  "name": "bart-guide-phonegap",
+  "version": "1.0.0",
+  "description": "BART Guide PhoneGap app with Framework7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/desaiuditd/bart-guide-phonegap.git"
+  },
+  "author": "Udit Desai",
+  "license": "Apache-2.0.0",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "scripts": {
+    "less": "lessc www/less/style.less www/css/style.css"
+  },
+  "dependencies": {
+    "less": "^2.7.2"
+  }
+}

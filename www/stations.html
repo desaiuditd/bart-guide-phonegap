@@ -1,0 +1,51 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="back link">
+                <i class="fa fa-arrow-left"></i>
+                <span>Back</span>
+            </a>
+        </div>
+        <div class="center sliding">BART Stations</div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel"><i class="fa fa-list-ul"></i></a>
+        </div>
+    </div>
+</div>
+<div class="pages">
+    <div data-page="stations" class="page">
+        <div class="page-content">
+            <div class="content-block">
+                <h1 class="page-header">BART Stations</h1>
+
+            </div>
+        </div>
+
+        <script id="station-list-template" type="text/x-handlebars-template">
+            {{#if stations}}
+            <div class="list-block">
+                <ul>
+                    {{#each stations}}
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">
+                                <a href="station.html?stn_abbr={{abbr}}" class="list-group-item">{{name}}, {{city}}</a>
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+            {{else}}
+            <p class="text-warning bg-warning">
+                Hold on ! We are fetching stations for you. <br />
+                If it takes too long then, Oops! We did not find any stations for you!
+            </p>
+            {{/if}}
+        </script>
+
+    </div>
+</div>

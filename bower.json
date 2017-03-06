@@ -1,0 +1,27 @@
+{
+  "name": "bart-guide-phonegap",
+  "description": "BART Guide PhoneGap app with Framework7",
+  "main": "",
+  "authors": [
+    "Udit Desai"
+  ],
+  "license": "Apache-2.0.0",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0"
+  }
+}
