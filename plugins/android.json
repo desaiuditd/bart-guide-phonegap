@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "in.incognitech.bart"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "in.incognitech.bart"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "in.incognitech.bart"
+        }
+    },
+    "dependent_plugins": {}
+}

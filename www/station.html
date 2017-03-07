@@ -1,0 +1,80 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+
+<!-- Top Navbar-->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="back link">
+                <i class="fa fa-arrow-left"></i>
+                <span>Back</span>
+            </a>
+        </div>
+        <div class="center sliding">{{bart_station_name}}</div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel"><i class="fa fa-list-ul"></i></a>
+        </div>
+    </div>
+</div>
+<div class="pages">
+    <div data-page="station" class="page">
+        <div class="page-content">
+            <div class="content-block">
+                {{#if station}}
+                    {{#with station}}
+                        <h1 class="page-header">
+                            <a href="{{link}}" target="_blank">
+                                {{name}}, {{city}} <span class="text-muted">({{abbr}})</span>
+                            </a>
+                        </h1>
+                        <div class="row">
+                            <div class="col-100">
+                                <address>
+                                    {{address}}<br />
+                                    {{city}}<br />
+                                    {{county}}<br />
+                                    {{state}} - {{zipcode}}
+                                </address>
+                            </div>
+                            <div class="col-100">
+                                <div class="map-container">
+                                    <div id="stationMap"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-100">
+                                <ul>
+                                    <li><strong>Introduction: </strong> {{intro}}</li>
+                                    <li><strong>Attraction: </strong> {{attraction}}</li>
+                                    <li><strong>Food: </strong> {{food}}</li>
+                                    <li><strong>Shopping: </strong> {{shopping}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-100">
+                                <ul>
+                                    <li><strong>Platform Info: </strong> {{platform_info}}</li>
+                                    <li><strong>North Platforms: </strong> {{north_platforms[0].platform}}</li>
+                                    <li><strong>South Platforms: </strong> {{south_platforms[0].platform}}</li>
+                                </ul>
+                            </div>
+                            <div class="col-100">
+                                <ul>
+                                    <li><strong>Routes</strong></li>
+                                    <li><strong>North Routes: </strong> {{north_routes[0].route}}</li>
+                                    <li><strong>South Routes: </strong> {{south_routes[0].route}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {{/with}}
+                {{else}}
+                    <p class="text-warning bg-warning">
+                        Hold on ! We are fetching stations for you. <br />
+                        If it takes too long then, Oops! We did not find any stations for you!
+                    </p>
+                {{/if}}
+            </div>
+        </div>
+
+    </div>
+</div>
