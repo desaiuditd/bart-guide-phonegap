@@ -300,3 +300,27 @@ bartApp.onPageInit('trip', function (app, page) {
 
   });
 });
+
+/**
+ *
+ * *localhost*
+ * *localhost:3000*
+ * *bart.incognitech.in*
+ * *localhost/*
+ * *localhost:3000/*
+ * *bart.incognitech.in/*
+ * file:///* /www/index.html
+ */
+bartApp.initMap = function () {
+  console.log(window.location);
+  console.log("YOYO");
+  var uluru = {lat: -25.363, lng: 131.044};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+};

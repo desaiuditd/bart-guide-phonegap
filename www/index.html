@@ -26,11 +26,16 @@
         <!--style-src 'self' https://fonts.googleapis.com 'unsafe-inline';-->
         <!--img-src *;-->
         <!--media-src *;">-->
+    <!--<meta http-equiv="Content-Security-Policy" content="-->
+        <!--default-src * ws://*/* data: gap: *;-->
+        <!--script-src 'self' 'unsafe-inline' 'unsafe-eval' *;-->
+        <!--style-src 'self' 'unsafe-inline' *;-->
+        <!--img-src * data: gap: 'unsafe-inline' *;">-->
     <meta http-equiv="Content-Security-Policy" content="
-        default-src * ws://*/* data: gap: *;
+        default-src *;
         script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
         style-src 'self' 'unsafe-inline' *;
-        img-src * data: gap: 'unsafe-inline' *;">
+        img-src * data: 'unsafe-inline'">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -52,6 +57,12 @@
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -130,6 +141,7 @@
                                 <p>Checkout BART train schedules for your travel.</p>
                                 <p>Get real-time updates for your routes.</p>
                             </div>
+                            <div id="map"></div>
                         </div>
                     </div>
                 </div>
@@ -150,6 +162,7 @@
     <script type="text/javascript" src="bower_components/purl/purl.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlCnbdnZ2iFpw-Hr9fV-65cqDH_KSfckw&callback=bartApp.initMap"></script>
     <!-- for debug -->
     <script src="http://192.168.1.10:8080/target/target-script-min.js#anonymous"></script>
 </body>

@@ -211,3 +211,6 @@
   color: white;
   border: none;
 }
+.content-block-title {
+  white-space: normal;
+}
