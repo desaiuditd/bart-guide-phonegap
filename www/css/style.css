@@ -37,3 +37,22 @@
 .panel .list-block ul a {
   color: white;
 }
+.page {
+  background: white;
+}
+.page-header {
+  color: #44156f;
+  border-bottom: 1px solid #eee;
+}
+.page-header a {
+  color: #44156f;
+}
+.map-container {
+  max-width: 100%;
+  height: 300px;
+}
+.map-container #stationMap {
+  display: block;
+  max-width: 100%;
+  height: 300px;
+}

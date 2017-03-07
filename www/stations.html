@@ -20,32 +20,28 @@
         <div class="page-content">
             <div class="content-block">
                 <h1 class="page-header">BART Stations</h1>
-
+                {{#if stations}}
+                    <div class="list-block">
+                        <ul>
+                            {{#each stations}}
+                            <li class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">
+                                        <a href="station.html?stn_abbr={{abbr}}" class="list-group-item">{{name}}, {{city}}</a>
+                                    </div>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{else}}
+                    <p class="text-warning bg-warning">
+                        Hold on ! We are fetching stations for you. <br />
+                        If it takes too long then, Oops! We did not find any stations for you!
+                    </p>
+                {{/if}}
             </div>
         </div>
-
-        <script id="station-list-template" type="text/x-handlebars-template">
-            {{#if stations}}
-            <div class="list-block">
-                <ul>
-                    {{#each stations}}
-                    <li class="item-content">
-                        <div class="item-inner">
-                            <div class="item-title">
-                                <a href="station.html?stn_abbr={{abbr}}" class="list-group-item">{{name}}, {{city}}</a>
-                            </div>
-                        </div>
-                    </li>
-                    {{/each}}
-                </ul>
-            </div>
-            {{else}}
-            <p class="text-warning bg-warning">
-                Hold on ! We are fetching stations for you. <br />
-                If it takes too long then, Oops! We did not find any stations for you!
-            </p>
-            {{/if}}
-        </script>
 
     </div>
 </div>

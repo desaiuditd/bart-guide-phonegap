@@ -10,11 +10,27 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+    <!-- add http://192.168.1.10:8080 for debug -->
+    <!--<meta http-equiv="Content-Security-Policy" content="-->
+        <!--default-src 'self'-->
+        <!--https://maps.googleapis.com-->
+        <!--https://maps.gstatic.com-->
+        <!--https://fonts.googleapis.com-->
+        <!--https://fonts.gstatic.com-->
+        <!--https://csi.gstatic.com-->
+        <!--https://bart.incognitech.in-->
+        <!--http://www.bart.gov-->
+        <!--http://www.yelp.com-->
+        <!--ws://*/*-->
+        <!--data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';-->
+        <!--style-src 'self' https://fonts.googleapis.com 'unsafe-inline';-->
+        <!--img-src *;-->
+        <!--media-src *;">-->
     <meta http-equiv="Content-Security-Policy" content="
-        default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline';
-        style-src 'self' 'unsafe-inline';
-        media-src *"
-    >
+        default-src * ws://*/* data: gap: *;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+        style-src 'self' 'unsafe-inline' *;
+        img-src * data: gap: 'unsafe-inline' *;">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -92,7 +108,7 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Awesome App</div>
+                    <div class="center sliding">BART Guide</div>
                     <div class="right">
                         <!--
                           Right link contains only icon - additional "icon-only" class
@@ -131,7 +147,9 @@
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+    <script type="text/javascript" src="bower_components/purl/purl.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
+    <!-- for debug -->
     <script src="http://192.168.1.10:8080/target/target-script-min.js#anonymous"></script>
 </body>
 

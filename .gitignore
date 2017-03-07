@@ -2,3 +2,5 @@
 node_modules
 www/bower_components
 platforms/browser
+platforms/android
+platforms/ios
