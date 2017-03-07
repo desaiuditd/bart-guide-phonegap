@@ -9,7 +9,7 @@
                 <span>Back</span>
             </a>
         </div>
-        <div class="center sliding">Trip</div>
+        <div class="center sliding">BART Trip</div>
         <div class="right">
             <a href="#" class="link icon-only open-panel"><i class="fa fa-list-ul"></i></a>
         </div>
@@ -19,7 +19,52 @@
     <div data-page="trip" class="page">
         <div class="page-content">
             <div class="content-block">
-                YOYO
+                <h1 class="page-header">BART Trip</h1>
+                <p class="bg-info text-info">
+                    - Select Source Station & Destination Station.<br />
+                    - We will get you all the scheduled routes with real-time updates.
+                </p>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <a href="#" class="item-link smart-select" data-open-in="picker" data-searchbar="true" data-searchbar-placeholder="Search Stations">
+                                <select class="form-control" id="source" name="source">
+                                    <option value="">Select Source Station</option>
+                                    {{#each stations}}
+                                        <option value="{{abbr}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <!-- Select label -->
+                                        <div class="item-title">Source</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="item-link smart-select" data-open-in="picker" data-searchbar="true" data-searchbar-placeholder="Search Stations">
+                                <select class="form-control" id="destination" name="destination">
+                                    <option value="">Select Destination Station</option>
+                                    {{#each stations}}
+                                        <option value="{{abbr}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <!-- Select label -->
+                                        <div class="item-title">Destination</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-50">
+                        <a href="tripData.html?src=&dest=" id="btn-trip-go" class="button button-big">Go!</a>
+                    </div>
+                </div>
             </div>
         </div>
 

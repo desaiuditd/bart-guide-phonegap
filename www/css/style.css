@@ -37,6 +37,156 @@
 .panel .list-block ul a {
   color: white;
 }
+#arrow-1 {
+  margin-top: 5%;
+  width: 100%;
+}
+#arrow-1 h4 {
+  padding-top: 15px;
+}
+[class|='arrow'] {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  border: 0 solid transparent;
+}
+[class|='arrow']:after {
+  content: '';
+  position: absolute;
+  margin: -5px;
+  border: 5px solid transparent;
+}
+[class|='arrow-v'] {
+  width: 3.75px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+[class|='arrow-v']:before {
+  left: 50%;
+  top: -5px;
+}
+[class|='arrow-v']:after {
+  left: 50%;
+  bottom: -5px;
+}
+[class|='arrow-h'] {
+  height: 3.75px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+[class|='arrow-h']:before {
+  top: 50%;
+  left: -5px;
+}
+[class|='arrow-h']:after {
+  top: 50%;
+  right: -5px;
+}
+[class|='arrow'][class*='-gray'] {
+  background: #555555 content-box;
+}
+[class|='arrow'][class*='-gray'][class|='arrow-v']:before {
+  border-bottom-color: #555555;
+}
+[class|='arrow'][class*='-gray'][class|='arrow-v']:after {
+  border-top-color: #555555;
+}
+[class|='arrow'][class*='-gray'][class|='arrow-h']:before {
+  border-right-color: #555555;
+}
+[class|='arrow'][class*='-gray'][class|='arrow-h']:after {
+  border-left-color: #555555;
+}
+[class|='arrow'][class*='-#FFFF33'] {
+  background: #FFFF33 content-box;
+}
+[class|='arrow'][class*='-#FFFF33'][class|='arrow-v']:before {
+  border-bottom-color: #FFFF33;
+}
+[class|='arrow'][class*='-#FFFF33'][class|='arrow-v']:after {
+  border-top-color: #FFFF33;
+}
+[class|='arrow'][class*='-#FFFF33'][class|='arrow-h']:before {
+  border-right-color: #FFFF33;
+}
+[class|='arrow'][class*='-#FFFF33'][class|='arrow-h']:after {
+  border-left-color: #FFFF33;
+}
+[class|='arrow'][class*='-#0099CC'] {
+  background: #0099CC content-box;
+}
+[class|='arrow'][class*='-#0099CC'][class|='arrow-v']:before {
+  border-bottom-color: #0099CC;
+}
+[class|='arrow'][class*='-#0099CC'][class|='arrow-v']:after {
+  border-top-color: #0099CC;
+}
+[class|='arrow'][class*='-#0099CC'][class|='arrow-h']:before {
+  border-right-color: #0099CC;
+}
+[class|='arrow'][class*='-#0099CC'][class|='arrow-h']:after {
+  border-left-color: #0099CC;
+}
+[class|='arrow'][class*='-#339933'] {
+  background: #339933 content-box;
+}
+[class|='arrow'][class*='-#339933'][class|='arrow-v']:before {
+  border-bottom-color: #339933;
+}
+[class|='arrow'][class*='-#339933'][class|='arrow-v']:after {
+  border-top-color: #339933;
+}
+[class|='arrow'][class*='-#339933'][class|='arrow-h']:before {
+  border-right-color: #339933;
+}
+[class|='arrow'][class*='-#339933'][class|='arrow-h']:after {
+  border-left-color: #339933;
+}
+[class|='arrow'][class*='-#FF9933'] {
+  background: #FF9933 content-box;
+}
+[class|='arrow'][class*='-#FF9933'][class|='arrow-v']:before {
+  border-bottom-color: #FF9933;
+}
+[class|='arrow'][class*='-#FF9933'][class|='arrow-v']:after {
+  border-top-color: #FF9933;
+}
+[class|='arrow'][class*='-#FF9933'][class|='arrow-h']:before {
+  border-right-color: #FF9933;
+}
+[class|='arrow'][class*='-#FF9933'][class|='arrow-h']:after {
+  border-left-color: #FF9933;
+}
+[class|='arrow'][class*='-#FF0000'] {
+  background: #FF0000 content-box;
+}
+[class|='arrow'][class*='-#FF0000'][class|='arrow-v']:before {
+  border-bottom-color: #FF0000;
+}
+[class|='arrow'][class*='-#FF0000'][class|='arrow-v']:after {
+  border-top-color: #FF0000;
+}
+[class|='arrow'][class*='-#FF0000'][class|='arrow-h']:before {
+  border-right-color: #FF0000;
+}
+[class|='arrow'][class*='-#FF0000'][class|='arrow-h']:after {
+  border-left-color: #FF0000;
+}
+[class|='arrow'][class*='-#D5CFA3'] {
+  background: #D5CFA3 content-box;
+}
+[class|='arrow'][class*='-#D5CFA3'][class|='arrow-v']:before {
+  border-bottom-color: #D5CFA3;
+}
+[class|='arrow'][class*='-#D5CFA3'][class|='arrow-v']:after {
+  border-top-color: #D5CFA3;
+}
+[class|='arrow'][class*='-#D5CFA3'][class|='arrow-h']:before {
+  border-right-color: #D5CFA3;
+}
+[class|='arrow'][class*='-#D5CFA3'][class|='arrow-h']:after {
+  border-left-color: #D5CFA3;
+}
 .page {
   background: white;
 }
@@ -55,4 +205,9 @@
   display: block;
   max-width: 100%;
   height: 300px;
+}
+.button {
+  background: #44156f;
+  color: white;
+  border: none;
 }

@@ -1,0 +1,104 @@
+#arrow-1 {
+  margin-top: 5%;
+  width: 100%;
+}
+
+#arrow-1 h4 {
+  padding-top: 15px;
+}
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+@gray: lighten(#000, 33.5%); // #555
+
+// ls-arrow v0.0.1
+@arrow-size: 5px;
+
+// Arrow Container
+[class|='arrow'] {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  border: 0 solid transparent;
+}
+// Arrow Triangles
+// [class|='arrow']:before,
+[class|='arrow']:after {
+  content: '';
+  position: absolute;
+  margin: -@arrow-size;
+  border: @arrow-size solid transparent;
+}
+// Vertical Arrow
+[class|='arrow-v'] {
+  & {
+    width: @arrow-size * 0.75;
+    border-top: @arrow-size solid transparent;
+    border-bottom: @arrow-size solid transparent;
+  }
+  &:before {
+    left: 50%;
+    top: -@arrow-size;
+  }
+  &:after {
+    left: 50%;
+    bottom: -@arrow-size;
+  }
+}
+// Horizontal Arrow
+[class|='arrow-h'] {
+  & {
+    height: @arrow-size * 0.75;
+    border-left: @arrow-size solid transparent;
+    border-right: @arrow-size solid transparent;
+  }
+  &:before {
+    top: 50%;
+    left: -@arrow-size;
+  }
+  &:after {
+    top: 50%;
+    right: -@arrow-size;
+  }
+}
+// Color Mixin
+.arrow-color(@color) {
+  & {
+    background: @color content-box;
+  }
+  &[class|='arrow-v']:before {
+    border-bottom-color: @color;
+  }
+  &[class|='arrow-v']:after {
+    border-top-color: @color;
+  }
+  &[class|='arrow-h']:before {
+    border-right-color: @color;
+  }
+  &[class|='arrow-h']:after {
+    border-left-color: @color;
+  }
+}
+// Create Colors
+[class|='arrow'][class*='-gray'] {
+  .arrow-color(@gray);
+}
+[class|='arrow'][class*='-#FFFF33'] {
+  .arrow-color(#FFFF33);
+}
+[class|='arrow'][class*='-#0099CC'] {
+  .arrow-color(#0099CC);
+}
+[class|='arrow'][class*='-#339933'] {
+  .arrow-color(#339933);
+}
+[class|='arrow'][class*='-#FF9933'] {
+  .arrow-color(#FF9933);
+}
+[class|='arrow'][class*='-#FF0000'] {
+  .arrow-color(#FF0000);
+}
+[class|='arrow'][class*='-#D5CFA3'] {
+  .arrow-color(#D5CFA3);
+}
