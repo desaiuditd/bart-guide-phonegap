@@ -289,11 +289,6 @@ $$(document).on('deviceready', function() {
   console.log("Device is ready!");
   bartApp.countDownIntervalIds = [];
   bartApp.refreshInterval = null;
-
-  $(document).tooltip({
-    selector: '[data-toggle="tooltip"]'
-  });
-
   bartApp.bartDirectionsDisplay = null;
   bartApp.bartDirectionsService = null;
 });
@@ -393,14 +388,14 @@ bartApp.onPageInit('tripData', function (app) {
 
   }, 30000);
 
-  $('.open-trip-map').on('click', function (e) {
+  $$('.open-trip-map').on('click', function (e) {
     bartApp.popup('.trip-map-popup');
-    $('.trip-map-popup').data('trip-index', $(e.target).data('trip-index'));
+    $$('.trip-map-popup').data('trip-index', $$(e.target).data('trip-index'));
   });
 
-  $('.trip-map-popup').on('popup:opened', function (e) {
+  $$('.trip-map-popup').on('popup:opened', function (e) {
 
-    var popup = $(e.target); // Button that triggered the modal
+    var popup = $$(e.target); // Button that triggered the modal
     var tripIndex = popup.data('trip-index'); // Extract info from data-* attributes
     var tripData = bartApp.tripData;
     var trip = tripData.scheduledTrips.root.schedule[0].request[0].trip[tripIndex];
@@ -415,7 +410,7 @@ bartApp.onPageInit('tripData', function (app) {
       modalTitle += ( ' <i class="fa fa-long-arrow-right"></i> ' + trip.leg[i].$.destination);
     }
 
-    $('#tripMapModalLabel').html(modalTitle);
+    $$('#tripMapModalLabel').html(modalTitle);
 
     if (bartApp.mapLoaded) {
       var bounds = new google.maps.LatLngBounds();
