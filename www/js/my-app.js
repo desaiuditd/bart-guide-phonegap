@@ -270,6 +270,22 @@ Template7.registerHelper('tripTitle', function (trip) {
   return modalTitle;
 });
 
+Template7.registerHelper('isSelectedSource', function (abbr) {
+  var selected = '';
+  if (typeof(Storage) !== "undefined") {
+    selected = localStorage.getItem('source') === abbr ? 'selected="selected"' : '';
+  }
+  return selected;
+});
+
+Template7.registerHelper('isSelectedDestination', function (abbr) {
+  var selected = '';
+  if (typeof(Storage) !== "undefined") {
+    selected = localStorage.getItem('destination') === abbr ? 'selected="selected"' : '';
+  }
+  return selected;
+});
+
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
@@ -343,6 +359,13 @@ bartApp.onPageInit('trip', function (app, page) {
 
     bartApp.source = source;
     bartApp.destination = destination;
+
+    if (typeof(Storage) !== "undefined") {
+      localStorage.setItem('source', source);
+      localStorage.setItem('destination', destination);
+    } else {
+      // Sorry! No Web Storage support..
+    }
 
   });
 });
