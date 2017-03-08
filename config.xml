@@ -15,8 +15,6 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
-    <access origin="https://maps.googleapis.com" subdomains="true"/>
     <platform name="android">
         <access origin="*" />
         <preference name="android-minSdkVersion" value="14" />

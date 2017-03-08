@@ -1,0 +1,60 @@
+@real-time-line-size: 5px;
+
+// Arrow Container
+[class|='real-time-line'] {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  border: 0 solid transparent;
+}
+
+// Horizontal Arrow
+[class|='real-time-line'] {
+  & {
+    height: @real-time-line-size * 0.75;
+    border-left: @real-time-line-size solid transparent;
+    border-right: @real-time-line-size solid transparent;
+  }
+  &:before {
+    top: 50%;
+    left: -@real-time-line-size;
+  }
+  &:after {
+    top: 50%;
+    right: -@real-time-line-size;
+  }
+}
+// Color Mixin
+.real-time-line-color(@color) {
+  & {
+    background: @color content-box;
+  }
+  &[class|='real-time-line']:before {
+    border-right-color: @color;
+  }
+  &[class|='real-time-line']:after {
+    border-left-color: @color;
+  }
+}
+// Create Colors
+[class|='real-time-line'][class*='-gray'] {
+  .arrow-color(@gray);
+}
+[class|='real-time-line'][class*='-#ffff33'] {
+  .arrow-color(#ffff33);
+}
+[class|='real-time-line'][class*='-#0099cc'] {
+  .arrow-color(#0099cc);
+}
+[class|='real-time-line'][class*='-#339933'] {
+  .arrow-color(#339933);
+}
+[class|='real-time-line'][class*='-#ff9933'] {
+  .arrow-color(#ff9933);
+}
+[class|='real-time-line'][class*='-#ff0000'] {
+  .arrow-color(#ff0000);
+}
+[class|='real-time-line'][class*='-#d5cfa3'] {
+  .arrow-color(#d5cfa3);
+}

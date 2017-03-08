@@ -21,70 +21,78 @@
             <div class="content-block">
                 <h1 class="page-header">BART Trip</h1>
                 {{#if tripData}}
-                    <div class="content-block-title">
-                        <strong>On </strong> {{realDate}}
-                        <strong>Departing Around </strong> {{realTime}}
-                    </div>
-                    <div class="row">
-                        {{#if realTimeEstimates}}
-                        <div class="col-sm-10 col-sm-offset-1">
-                            <div class="jumbotron real-time-jumbotron">
-                                <h3 class="text-center">Real Time Train Estimates</h3>
-                                <div class="table-responsive lead text-center">
-                                    <table class="table">
+                    {{#if realTimeEstimates}}
+                        <div class="card real-time-card">
+                            <div class="card-header"><strong>Real Time Train Estimates</strong></div>
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    <table>
                                         {{#each realTimeEstimates}}
-                                        <tr>
-                                            <td>{{destination}}</td>
-                                            <td>
-                                                <span class="real-time-line-{{estimate[0].hexcolor[0]}}">
-                                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                                </span>
-                                            </td>
-                                            <td>
-                                                {{getRealTimeEstimateMinutes estimate[0].minutes[0]}}
-                                                {{getRealTimeCountdown estimate[0].minutes[0]}}
-                                            </td>
-                                            <td class="hidden-xs hidden-sm">({{estimate[0].length}} cars)</td>
-                                            <td>From Platform {{estimate[0].platform}}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>{{abbreviation}}</td>
+                                                <td>
+                                                    <span class="real-time-line-{{estimate[0].hexcolor[0]}}">
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{getRealTimeEstimateMinutes estimate[0].minutes[0]}}
+                                                    {{getRealTimeCountdown estimate[0].minutes[0]}}
+                                                </td>
+                                                <td>Platform {{estimate[0].platform}}</td>
+                                            </tr>
                                         {{/each}}
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        {{/if}}
-
-                        <div class="col-sm-10 col-sm-offset-1">
-                            {{#each trips}}
-                                <div class="jumbotron">
+                    {{/if}}
+                    {{#each trips}}
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>
+                                    {{tripTitle this}}
+                                </strong>
+                                <div class="chip">
+                                    <div class="chip-label"><i class="fa fa-dollar"></i>{{$.fare}}</div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-content-inner">
                                     <div class="row">
                                         {{tripMarkup this}}
-                                        <div class="col-sm-1 hidden-xs hidden-sm">
-                                            <div class="row">
-                                                <a href="#" class="btn-sm btn-block btn-info viewTripMap text-center"
-                                                   data-toggle="modal" data-target="#tripMapModal"
-                                                   data-trip-index="{{@index}}">View Map</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <div class="row hidden-md hidden-lg">
-                                        <a href="#" class="btn-sm btn-block btn-info viewTripMap text-center"
-                                           data-toggle="modal" data-target="#tripMapModal"
-                                           data-trip-index="{{@index}}">View Map</a>
                                     </div>
                                 </div>
-                            {{/each}}
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="link open-trip-map"
+                                   data-trip-index="{{@index}}">View Map</a>
+                            </div>
                         </div>
-                        <div class="col-sm-10 col-sm-offset-1">
-                            {{#if co2emission}}
-                                <p class="bg-info text-info">{{co2emission}}</p>
-                            {{/if}}
-                            {{#if specialSchedule}}
-                                <p class="bg-info text-info">{{specialSchedule}}</p>
-                            {{/if}}
+                    {{/each}}
+
+                    {{#if co2emission}}
+                        <div class="card">
+                            <div class="card-header"><strong>CO2 Emission</strong></div>
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    {{co2emission}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {{/if}}
+
+                    {{#if specialSchedule}}
+                        <div class="card">
+                            <div class="card-header"><strong>Special Schedule</strong></div>
+                            <div class="card-content">
+                                <div class="card-content-inner">
+                                    {{specialSchedule}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+
                 {{else}}
                     <p class="text-warning bg-warning text-center hide trip-message">
                         <i class="fa fa-spinner fa-3x fa-spin"></i><br /><br />
@@ -94,22 +102,13 @@
                 {{/if}}
 
                 <!-- Modal -->
-                <div class="modal fade" id="tripMapModal" tabindex="-1" role="dialog" aria-labelledby="tripMapModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="tripMapModalLabel">Modal title</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="map-container">
-                                    <div class="tripMap"></div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                <div class="popup trip-map-popup" data-trip-index="">
+                    <div class="content-block">
+                        <h1 class="page-header" id="tripMapModalLabel">Modal title</h1>
+                        <div class="map-container">
+                            <div id="tripMap"></div>
                         </div>
+                        <p><a href="#" class="button close-popup">Close popup</a></p>
                     </div>
                 </div>
             </div>

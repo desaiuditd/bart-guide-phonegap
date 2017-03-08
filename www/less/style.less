@@ -1,9 +1,15 @@
+@import "../bower_components/bootstrap/less/variables";
 @import "variables";
+
+@import "../bower_components/bootstrap/less/mixins/reset-text";
+@import "../bower_components/bootstrap/less/mixins/opacity";
+@import "../bower_components/bootstrap/less/tooltip";
 
 @import "statusbar";
 @import "navbar";
 @import "sidebar";
 @import "arrows";
+@import "real-time-line";
 
 .page {
   background: white;
@@ -22,7 +28,7 @@
   max-width: 100%;
   height: 300px;
 
-  #stationMap {
+  #stationMap, #tripMap {
     display: block;
     max-width: 100%;
     height: 300px;
@@ -37,4 +43,17 @@
 
 .content-block-title {
   white-space: normal;
+}
+
+.card {
+  background-color: @jumbotron-bg;
+  text-align: center;
+}
+
+.real-time-card {
+  background-color: darken(@jumbotron-bg, 20%);
+}
+
+.card-footer:before, .card-header:after {
+  background-color: #6d6d6d;
 }

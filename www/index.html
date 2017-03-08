@@ -26,16 +26,7 @@
         <!--style-src 'self' https://fonts.googleapis.com 'unsafe-inline';-->
         <!--img-src *;-->
         <!--media-src *;">-->
-    <!--<meta http-equiv="Content-Security-Policy" content="-->
-        <!--default-src * ws://*/* data: gap: *;-->
-        <!--script-src 'self' 'unsafe-inline' 'unsafe-eval' *;-->
-        <!--style-src 'self' 'unsafe-inline' *;-->
-        <!--img-src * data: gap: 'unsafe-inline' *;">-->
-    <meta http-equiv="Content-Security-Policy" content="
-        default-src *;
-        script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
-        style-src 'self' 'unsafe-inline' *;
-        img-src * data: 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="default-src * ws://*/* data: gap: *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src 'self' 'unsafe-inline' *; img-src * data: gap: 'unsafe-inline' *;">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -141,7 +132,6 @@
                                 <p>Checkout BART train schedules for your travel.</p>
                                 <p>Get real-time updates for your routes.</p>
                             </div>
-                            <div id="map"></div>
                         </div>
                     </div>
                 </div>
@@ -161,10 +151,12 @@
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
     <script type="text/javascript" src="bower_components/purl/purl.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/js/tooltip.js"></script>
     <script type="text/javascript" src="js/my-app.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlCnbdnZ2iFpw-Hr9fV-65cqDH_KSfckw&callback=bartApp.initMap"></script>
     <!-- for debug -->
-    <script src="http://192.168.1.10:8080/target/target-script-min.js#anonymous"></script>
+    <!--<script src="http://192.168.1.10:8080/target/target-script-min.js#anonymous"></script>-->
 </body>
 
 </html>

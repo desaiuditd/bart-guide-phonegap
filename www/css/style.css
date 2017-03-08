@@ -1,3 +1,117 @@
+.tooltip {
+  position: absolute;
+  z-index: 1070;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-break: auto;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  white-space: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  font-size: 12px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.tooltip.in {
+  opacity: 0.9;
+  filter: alpha(opacity=90);
+}
+.tooltip.top {
+  margin-top: -3px;
+  padding: 5px 0;
+}
+.tooltip.right {
+  margin-left: 3px;
+  padding: 0 5px;
+}
+.tooltip.bottom {
+  margin-top: 3px;
+  padding: 5px 0;
+}
+.tooltip.left {
+  margin-left: -3px;
+  padding: 0 5px;
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #000;
+  border-radius: 4px;
+}
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-left .tooltip-arrow {
+  bottom: 0;
+  right: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-right .tooltip-arrow {
+  bottom: 0;
+  left: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #000;
+}
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #000;
+}
+.tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  top: 0;
+  right: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  top: 0;
+  left: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
 /*
    statusbar-overlay sets the background color for the overlay. Black text is the default when the statusbar plugin is not added. When the
    statusbar plugin is added, it also adds default setting to make the content white via:
@@ -187,6 +301,130 @@
 [class|='arrow'][class*='-#D5CFA3'][class|='arrow-h']:after {
   border-left-color: #D5CFA3;
 }
+[class|='real-time-line'] {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  border: 0 solid transparent;
+}
+[class|='real-time-line'] {
+  height: 3.75px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+[class|='real-time-line']:before {
+  top: 50%;
+  left: -5px;
+}
+[class|='real-time-line']:after {
+  top: 50%;
+  right: -5px;
+}
+[class|='real-time-line'][class*='-gray'] {
+  background: #555555 content-box;
+}
+[class|='real-time-line'][class*='-gray'][class|='arrow-v']:before {
+  border-bottom-color: #555555;
+}
+[class|='real-time-line'][class*='-gray'][class|='arrow-v']:after {
+  border-top-color: #555555;
+}
+[class|='real-time-line'][class*='-gray'][class|='arrow-h']:before {
+  border-right-color: #555555;
+}
+[class|='real-time-line'][class*='-gray'][class|='arrow-h']:after {
+  border-left-color: #555555;
+}
+[class|='real-time-line'][class*='-#ffff33'] {
+  background: #ffff33 content-box;
+}
+[class|='real-time-line'][class*='-#ffff33'][class|='arrow-v']:before {
+  border-bottom-color: #ffff33;
+}
+[class|='real-time-line'][class*='-#ffff33'][class|='arrow-v']:after {
+  border-top-color: #ffff33;
+}
+[class|='real-time-line'][class*='-#ffff33'][class|='arrow-h']:before {
+  border-right-color: #ffff33;
+}
+[class|='real-time-line'][class*='-#ffff33'][class|='arrow-h']:after {
+  border-left-color: #ffff33;
+}
+[class|='real-time-line'][class*='-#0099cc'] {
+  background: #0099cc content-box;
+}
+[class|='real-time-line'][class*='-#0099cc'][class|='arrow-v']:before {
+  border-bottom-color: #0099cc;
+}
+[class|='real-time-line'][class*='-#0099cc'][class|='arrow-v']:after {
+  border-top-color: #0099cc;
+}
+[class|='real-time-line'][class*='-#0099cc'][class|='arrow-h']:before {
+  border-right-color: #0099cc;
+}
+[class|='real-time-line'][class*='-#0099cc'][class|='arrow-h']:after {
+  border-left-color: #0099cc;
+}
+[class|='real-time-line'][class*='-#339933'] {
+  background: #339933 content-box;
+}
+[class|='real-time-line'][class*='-#339933'][class|='arrow-v']:before {
+  border-bottom-color: #339933;
+}
+[class|='real-time-line'][class*='-#339933'][class|='arrow-v']:after {
+  border-top-color: #339933;
+}
+[class|='real-time-line'][class*='-#339933'][class|='arrow-h']:before {
+  border-right-color: #339933;
+}
+[class|='real-time-line'][class*='-#339933'][class|='arrow-h']:after {
+  border-left-color: #339933;
+}
+[class|='real-time-line'][class*='-#ff9933'] {
+  background: #ff9933 content-box;
+}
+[class|='real-time-line'][class*='-#ff9933'][class|='arrow-v']:before {
+  border-bottom-color: #ff9933;
+}
+[class|='real-time-line'][class*='-#ff9933'][class|='arrow-v']:after {
+  border-top-color: #ff9933;
+}
+[class|='real-time-line'][class*='-#ff9933'][class|='arrow-h']:before {
+  border-right-color: #ff9933;
+}
+[class|='real-time-line'][class*='-#ff9933'][class|='arrow-h']:after {
+  border-left-color: #ff9933;
+}
+[class|='real-time-line'][class*='-#ff0000'] {
+  background: #ff0000 content-box;
+}
+[class|='real-time-line'][class*='-#ff0000'][class|='arrow-v']:before {
+  border-bottom-color: #ff0000;
+}
+[class|='real-time-line'][class*='-#ff0000'][class|='arrow-v']:after {
+  border-top-color: #ff0000;
+}
+[class|='real-time-line'][class*='-#ff0000'][class|='arrow-h']:before {
+  border-right-color: #ff0000;
+}
+[class|='real-time-line'][class*='-#ff0000'][class|='arrow-h']:after {
+  border-left-color: #ff0000;
+}
+[class|='real-time-line'][class*='-#d5cfa3'] {
+  background: #d5cfa3 content-box;
+}
+[class|='real-time-line'][class*='-#d5cfa3'][class|='arrow-v']:before {
+  border-bottom-color: #d5cfa3;
+}
+[class|='real-time-line'][class*='-#d5cfa3'][class|='arrow-v']:after {
+  border-top-color: #d5cfa3;
+}
+[class|='real-time-line'][class*='-#d5cfa3'][class|='arrow-h']:before {
+  border-right-color: #d5cfa3;
+}
+[class|='real-time-line'][class*='-#d5cfa3'][class|='arrow-h']:after {
+  border-left-color: #d5cfa3;
+}
 .page {
   background: white;
 }
@@ -201,7 +439,8 @@
   max-width: 100%;
   height: 300px;
 }
-.map-container #stationMap {
+.map-container #stationMap,
+.map-container #tripMap {
   display: block;
   max-width: 100%;
   height: 300px;
@@ -213,4 +452,15 @@
 }
 .content-block-title {
   white-space: normal;
+}
+.card {
+  background-color: #ecdef9;
+  text-align: center;
+}
+.real-time-card {
+  background-color: #bb88e9;
+}
+.card-footer:before,
+.card-header:after {
+  background-color: #6d6d6d;
 }

@@ -119,7 +119,7 @@ var bartApp = new Framework7({
 
             tripDataJSON.trainHeadStations = {};
             for(var i = 0; i < trainHeadStationDataJSON.length; i++) {
-              const abbr = trainHeadStationDataJSON[i].root.stations[0].station[0].abbr[0];
+              var abbr = trainHeadStationDataJSON[i].root.stations[0].station[0].abbr[0];
               tripDataJSON.trainHeadStations[abbr] = trainHeadStationDataJSON[i];
             }
 
@@ -129,7 +129,7 @@ var bartApp = new Framework7({
 
               tripDataJSON.routes = {};
               for(var i = 0; i < routeDataJSON.length; i++) {
-                const routeID = routeDataJSON[i].root.routes[0].route[0].routeID[0];
+                var routeID = routeDataJSON[i].root.routes[0].route[0].routeID[0];
                 tripDataJSON.routes[routeID] = routeDataJSON[i];
               }
 
@@ -141,7 +141,26 @@ var bartApp = new Framework7({
                 tripData: tripDataJSON,
                 realDate: moment(tripDataJSON.realTimeEstimates.root.date[0], 'MM-DD-YYYY').format('MMMM DD, YYYY'),
                 realTime: tripDataJSON.realTimeEstimates.root.time,
-                realTimeEstimates: tripDataJSON.realTimeEstimates.root.station[0].etd,
+                realTimeEstimates: tripDataJSON.realTimeEstimates.root.station[0].etd ? tripDataJSON.realTimeEstimates.root.station[0].etd.sort(function (a, b) {
+                  var aMin = a.estimate[0].minutes[0];
+                  var bMin = b.estimate[0].minutes[0];
+                  if (aMin === 'Leaving') {
+                    return -1;
+                  }
+                  if (bMin === 'Leaving') {
+                    return 1;
+                  }
+
+                  if (parseInt(aMin) > parseInt(bMin)) {
+                    return 1;
+                  }
+
+                  if (parseInt(aMin) < parseInt(bMin)) {
+                    return -1;
+                  }
+
+                  return 0;
+                }) : null,
                 trips: tripDataJSON.scheduledTrips.root.schedule[0].request[0].trip,
                 co2emission: tripDataJSON.scheduledTrips.root.message[0].co2_emissions,
                 specialSchedule: tripDataJSON.scheduledTrips.root.message[0].special_schedule,
@@ -173,9 +192,9 @@ Template7.registerHelper('getRealTimeCountdown', function (minutes) {
   if (minutes === 'Leaving') {
     return '';
   }
-  const tripData = Session.get('tripData');
-  const realTimestamp = tripData.realTimeEstimates.root.date[0] + ' ' + tripData.realTimeEstimates.root.time;
-  const realDate = moment(realTimestamp, 'MM-DD-YYYY HH:mm:ss A').add(parseInt(minutes), 'minutes');
+  var tripData = bartApp.tripData;
+  var realTimestamp = tripData.realTimeEstimates.root.date[0] + ' ' + tripData.realTimeEstimates.root.time;
+  var realDate = moment(realTimestamp, 'MM-DD-YYYY HH:mm:ss A').add(parseInt(minutes), 'minutes');
   return '(<span data-countdown="' + moment(realDate).format('YYYY/MM/DD HH:mm:ss A') + '"></span>)';
 });
 
@@ -184,40 +203,44 @@ Template7.registerHelper('tripMarkup', function(trip) {
   var tripData = bartApp.tripData;
 
   var markup = '';
-  const transfercodemessage = {
+  var transfercodemessage = {
     N: 'Normal Transfer.',
     T: 'Timed Transfer. Connecting trains will wait up to five minutes for transferring passengers.',
     S: 'Scheduled Transfer. Connecting trains will NOT wait for transferring passengers if there is a delay.',
   };
 
-  const noOfLegs = trip.leg.length;
+  var noOfLegs = trip.leg.length;
 
-  var stationCol = 'col-xs-2 col-sm-1';
+  var stationCol = 'col-20';
 
-  var arrowCol = 8;
+  var arrowCol = 'col-60';
 
   for(var i = 0; i < trip.leg.length; i++) {
 
     if(i == 0) {
-      markup += '<div class="' + stationCol + ' text-center"><h4><small>' + trip.leg[i].$.origin + '</small><br />' + trip.leg[i].$.origTimeMin + '</h4></div>';
-    } else if(is.mobile()) {
-      markup += '<div class="' + stationCol + ' text-center"><h6><small>' + trip.leg[i].$.origin + '</small><br />' + trip.leg[i].$.origTimeMin + '</h6></div>';
+      markup += '<div class="' + stationCol + '"><h4><small>' + trip.leg[i].$.origin + '</small><br />' + trip.leg[i].$.origTimeMin + '</h4></div>';
+    } else {
+      markup += '<div class="' + stationCol + '"><h6><small>' + trip.leg[i].$.origin + '</small><br />' + trip.leg[i].$.origTimeMin + '</h6></div>';
     }
 
-    markup += '<div class="col-xs-' + arrowCol + '">';
+    markup += '<div class="' + arrowCol + '">';
     markup += '<div id="arrow-1" class="arrow-h-' + tripData.routes[trip.leg[i].$.line].root.routes[0].route[0].hexcolor[0].toUpperCase() + '">';
-    markup += '<h4 class="text-center">';
-    markup += tripData.trainHeadStations[trip.leg[i].$.trainHeadStation].root.stations[0].station[0].name;
-    markup += ' <span class="text-info"> ';
-    const bikeflag = trip.leg[i].$.bikeflag;
+    markup += '<h4>';
+    markup += tripData.trainHeadStations[trip.leg[i].$.trainHeadStation].root.stations[0].station[0].name + ' ';
+
+    var bikeflag = trip.leg[i].$.bikeflag;
     if (bikeflag === '1') {
-      markup += '<i class="fa fa-bicycle bg-info" data-toggle="tooltip" title="Bikes are allowed on this train."></i>';
+      markup += '<div class="chip"><div class="chip-label" data-toggle="tooltip" title="Bikes are allowed on this train."><i class="fa fa-bicycle bg-info"></i></div></div>';
     }
-    const load = parseInt(trip.leg[i].$.load);
-    for(var j = 0; j < load; j++) {
-      markup += '<i class="fa fa-user bg-info" data-toggle="tooltip" title="This shows how full the train is at this time."></i>';
+    var load = parseInt(trip.leg[i].$.load);
+    if (load > 0) {
+      markup += ' <div class="chip"><div class="chip-label" data-toggle="tooltip" title="This shows how full the train is at this time.">';
+      for(var j = 0; j < load; j++) {
+        markup += ' <i class="fa fa-user bg-info"></i>';
+      }
+      markup += '</div></div>';
     }
-    markup += '</span>';
+
     markup += '</h4>';
     markup += '</div>';
     markup += '</div>';
@@ -234,7 +257,7 @@ Template7.registerHelper('tripMarkup', function(trip) {
       markup += '<h6>';
       markup += '<small>' + trip.leg[i].$.destination + '</small><br />';
       markup += trip.leg[i].$.destTimeMin;
-      markup += '<br /><span class="lead trasfercode bg-info text-info" data-toggle="tooltip" title="' + transfercodemessage[trip.leg[i].$.transfercode] + '">' + trip.leg[i].$.transfercode + '</span>';
+      markup += '<br /><div class="chip"><div class="chip-label" data-toggle="tooltip" title="' + transfercodemessage[trip.leg[i].$.transfercode] + '">' + trip.leg[i].$.transfercode + '</div></div>';
       markup += '</h6>';
       markup += '</div>';
     }
@@ -242,6 +265,14 @@ Template7.registerHelper('tripMarkup', function(trip) {
   }
 
   return markup;
+});
+
+Template7.registerHelper('tripTitle', function (trip) {
+  var modalTitle = trip.$.origin;
+  for(var i = 0; i < trip.leg.length; i++) {
+    modalTitle += ( ' <i class="fa fa-long-arrow-right"></i> ' + trip.leg[i].$.destination);
+  }
+  return modalTitle;
 });
 
 // If we need to use custom DOM library, let's save it to $$ variable:
@@ -256,10 +287,32 @@ var mainView = bartApp.addView('.view-main', {
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
   console.log("Device is ready!");
+  bartApp.countDownIntervalIds = [];
+  bartApp.refreshInterval = null;
+
+  $(document).tooltip({
+    selector: '[data-toggle="tooltip"]'
+  });
+
+  bartApp.bartDirectionsDisplay = null;
+  bartApp.bartDirectionsService = null;
 });
 
-bartApp.onPageInit('station', function () {
+bartApp.onPageInit('station', function (app, page) {
   $$('.navbar .navbar-inner .center').html(bartApp.station.name);
+
+  if (bartApp.mapLoaded) {
+    var position = new google.maps.LatLng(bartApp.station.gtfs_latitude[0], bartApp.station.gtfs_longitude[0]);
+    var map = new google.maps.Map(document.getElementById('stationMap'), {
+      zoom: 16,
+      center: position
+    });
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map
+    });
+    map.panTo(position);
+  }
 });
 
 bartApp.onPageInit('trip', function (app, page) {
@@ -298,29 +351,125 @@ bartApp.onPageInit('trip', function (app, page) {
       return false;
     }
 
+    bartApp.source = source;
+    bartApp.destination = destination;
+
   });
 });
 
-/**
- *
- * *localhost*
- * *localhost:3000*
- * *bart.incognitech.in*
- * *localhost/*
- * *localhost:3000/*
- * *bart.incognitech.in/*
- * file:///* /www/index.html
- */
+bartApp.onPageInit('tripData', function (app) {
+
+  $$(bartApp.countDownIntervalIds).each(function (item, i) {
+    clearInterval(item);
+  });
+
+  $$('[data-countdown]').each(function() {
+    var $this = $$(this);
+
+    var finalDate = moment($this.data('countdown'), 'YYYY/MM/DD hh:mm:ss A');
+    var now = moment(new Date(), 'YYYY/MM/DD hh:mm:ss A');
+    var diff = finalDate.format('X') - now.format('X');
+    var duration = moment.duration(diff * 1000, 'milliseconds');
+    var interval = 1000;
+
+    bartApp.countDownIntervalIds.push(setInterval(function () {
+      if(duration - interval !== 0) {
+        duration = moment.duration(duration - interval, 'milliseconds');
+        $this.html(duration.hours() + ":" + duration.minutes() + ":" + duration.seconds());
+      }
+    }, interval));
+  });
+
+  clearInterval(bartApp.refreshInterval);
+
+  bartApp.refreshInterval = setInterval(function () {
+
+    var source = bartApp.source;
+    var destination = bartApp.destination;
+
+    if (source && destination && source !== '' && destination !== '' && source !== destination ) {
+      mainView.router.refreshPage();
+    }
+
+  }, 30000);
+
+  $('.open-trip-map').on('click', function (e) {
+    bartApp.popup('.trip-map-popup');
+    $('.trip-map-popup').data('trip-index', $(e.target).data('trip-index'));
+  });
+
+  $('.trip-map-popup').on('popup:opened', function (e) {
+
+    var popup = $(e.target); // Button that triggered the modal
+    var tripIndex = popup.data('trip-index'); // Extract info from data-* attributes
+    var tripData = bartApp.tripData;
+    var trip = tripData.scheduledTrips.root.schedule[0].request[0].trip[tripIndex];
+    var modalTitle = trip.$.origin;
+
+    var originLat = tripData.trainHeadStations[trip.$.origin].root.stations[0].station[0].gtfs_latitude[0];
+    var originLong = tripData.trainHeadStations[trip.$.origin].root.stations[0].station[0].gtfs_longitude[0];
+    var destLat = tripData.trainHeadStations[trip.$.destination].root.stations[0].station[0].gtfs_latitude[0];
+    var destLong = tripData.trainHeadStations[trip.$.destination].root.stations[0].station[0].gtfs_longitude[0];
+
+    for(var i = 0; i < trip.leg.length; i++) {
+      modalTitle += ( ' <i class="fa fa-long-arrow-right"></i> ' + trip.leg[i].$.destination);
+    }
+
+    $('#tripMapModalLabel').html(modalTitle);
+
+    if (bartApp.mapLoaded) {
+      var bounds = new google.maps.LatLngBounds();
+
+      for(var i = 0; i < trip.leg.length; i++) {
+        var lat = tripData.trainHeadStations[trip.leg[i].$.destination].root.stations[0].station[0].gtfs_latitude[0];
+        var long = tripData.trainHeadStations[trip.leg[i].$.destination].root.stations[0].station[0].gtfs_longitude[0];
+        var latLong = new google.maps.LatLng(lat, long);
+        bounds.extend(latLong);
+      }
+
+      var originLatLong = new google.maps.LatLng(originLat, originLong);
+      var destinationLatLong = new google.maps.LatLng(destLat, destLong);
+      bounds.extend(originLatLong);
+      bounds.extend(destinationLatLong);
+
+      var map = new google.maps.Map(document.getElementById('tripMap'), {
+        zoom: 16,
+        center: originLatLong
+      });
+
+      google.maps.event.trigger(map, 'resize');
+
+      map.fitBounds(bounds);       // auto-zoom
+      map.panToBounds(bounds);     // auto-center
+
+      if(bartApp.bartDirectionsDisplay != null) {
+        bartApp.bartDirectionsDisplay.setMap(null);
+        bartApp.bartDirectionsDisplay = null;
+        bartApp.bartDirectionsService = null;
+      }
+
+      bartApp.bartDirectionsDisplay = new google.maps.DirectionsRenderer;
+      bartApp.bartDirectionsService = new google.maps.DirectionsService;
+
+      bartApp.bartDirectionsDisplay.setMap(map);
+
+      bartApp.bartDirectionsService.route({
+        origin: {lat: parseFloat(originLat), lng: parseFloat(originLong)},
+        destination: {lat: parseFloat(destLat), lng: parseFloat(destLong)},
+        travelMode: google.maps.TravelMode['TRANSIT'],
+      }, function(response, status) {
+        if (status == 'OK') {
+          bartApp.bartDirectionsDisplay.setDirections(response);
+        } else {
+          bartApp.alert('Directions request failed due to ' + status);
+        }
+      });
+    }
+
+  });
+
+});
+
 bartApp.initMap = function () {
-  console.log(window.location);
-  console.log("YOYO");
-  var uluru = {lat: -25.363, lng: 131.044};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
+  bartApp.mapLoaded = true;
 };
