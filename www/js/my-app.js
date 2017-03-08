@@ -203,11 +203,6 @@ Template7.registerHelper('tripMarkup', function(trip) {
   var tripData = bartApp.tripData;
 
   var markup = '';
-  var transfercodemessage = {
-    N: 'Normal Transfer.',
-    T: 'Timed Transfer. Connecting trains will wait up to five minutes for transferring passengers.',
-    S: 'Scheduled Transfer. Connecting trains will NOT wait for transferring passengers if there is a delay.',
-  };
 
   var noOfLegs = trip.leg.length;
 
@@ -230,11 +225,11 @@ Template7.registerHelper('tripMarkup', function(trip) {
 
     var bikeflag = trip.leg[i].$.bikeflag;
     if (bikeflag === '1') {
-      markup += '<div class="chip"><div class="chip-label" data-toggle="tooltip" title="Bikes are allowed on this train."><i class="fa fa-bicycle bg-info"></i></div></div>';
+      markup += '<div class="chip open-popover" data-popover=".popover-bike"><div class="chip-label"><i class="fa fa-bicycle bg-info"></i></div></div>';
     }
     var load = parseInt(trip.leg[i].$.load);
     if (load > 0) {
-      markup += ' <div class="chip"><div class="chip-label" data-toggle="tooltip" title="This shows how full the train is at this time.">';
+      markup += ' <div class="chip open-popover" data-popover=".popover-load"><div class="chip-label">';
       for(var j = 0; j < load; j++) {
         markup += ' <i class="fa fa-user bg-info"></i>';
       }
@@ -257,7 +252,7 @@ Template7.registerHelper('tripMarkup', function(trip) {
       markup += '<h6>';
       markup += '<small>' + trip.leg[i].$.destination + '</small><br />';
       markup += trip.leg[i].$.destTimeMin;
-      markup += '<br /><div class="chip"><div class="chip-label" data-toggle="tooltip" title="' + transfercodemessage[trip.leg[i].$.transfercode] + '">' + trip.leg[i].$.transfercode + '</div></div>';
+      markup += '<br /><div class="chip open-popover" data-popover=".popover-transfer-' + trip.leg[i].$.transfercode + '"><div class="chip-label">' + trip.leg[i].$.transfercode + '</div></div>';
       markup += '</h6>';
       markup += '</div>';
     }
