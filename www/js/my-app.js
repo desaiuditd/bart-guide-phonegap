@@ -286,6 +286,25 @@ Template7.registerHelper('isSelectedDestination', function (abbr) {
   return selected;
 });
 
+Template7.registerHelper('getTripDataUrl', function () {
+  var url = 'tripData.html?source=&destination=';
+  if (typeof(Storage) !== "undefined") {
+    var source = localStorage.getItem('source');
+    var destination = localStorage.getItem('destination');
+
+    if(source === null || typeof source != 'string' || source === '') {
+      source = '';
+    }
+
+    if(destination === null || typeof destination != 'string' || destination === '') {
+      destination = '';
+    }
+
+    url = 'tripData.html?source=' + source + '&destination=' + destination;
+  }
+  return url;
+});
+
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
