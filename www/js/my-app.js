@@ -342,6 +342,11 @@ bartApp.onPageInit('station', function (app, page) {
 
 bartApp.onPageInit('trip', function (app, page) {
 
+  if (typeof(Storage) !== "undefined") {
+    $$('#source').val(localStorage.getItem('source')).change();
+    $$('#destination').val(localStorage.getItem('destination')).change();
+  }
+
   function setGoUrl(e) {
     var source = $$('#source').val();
     var destination = $$('#destination').val();
